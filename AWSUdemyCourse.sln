@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basics", "Basics\Basics.csproj", "{B8202B0B-EA2D-42B3-80E4-0187240AFB3D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "S3Projects", "S3Projects", "{9E00FBE6-ECD3-47F5-A0F4-8BAEB5449308}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S3Console", "S3Console\S3Console.csproj", "{8F09F94F-DAF2-493E-88F7-F921AC3DB6C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +19,16 @@ Global
 		{B8202B0B-EA2D-42B3-80E4-0187240AFB3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8202B0B-EA2D-42B3-80E4-0187240AFB3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8202B0B-EA2D-42B3-80E4-0187240AFB3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F09F94F-DAF2-493E-88F7-F921AC3DB6C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F09F94F-DAF2-493E-88F7-F921AC3DB6C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F09F94F-DAF2-493E-88F7-F921AC3DB6C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F09F94F-DAF2-493E-88F7-F921AC3DB6C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8F09F94F-DAF2-493E-88F7-F921AC3DB6C3} = {9E00FBE6-ECD3-47F5-A0F4-8BAEB5449308}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {68645D30-9A13-4B60-B2DE-CF2170C86BF1}
