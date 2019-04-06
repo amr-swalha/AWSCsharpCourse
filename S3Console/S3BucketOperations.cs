@@ -4,6 +4,7 @@ using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using Amazon.S3.Util;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace S3Console
         #region Fields
         AmazonS3Client client;
         const string bucketName = "myapp564";
+        const string objectName = "test.txt";
         public BasicAWSCredentials credentials =
               new BasicAWSCredentials(ConfigurationManager.AppSettings["accessId"], ConfigurationManager.AppSettings["secertKey"]);
         TransferUtility transferUtil;
@@ -90,6 +92,46 @@ namespace S3Console
             var url = client.GetPreSignedURL(request);
             Console.WriteLine("Sharing URL");
             Console.WriteLine(url);
+        }
+        public void GetObjectTagging()
+        {
+            GetObjectTaggingRequest tagRequest = new GetObjectTaggingRequest
+            {
+
+                BucketName = bucketName,
+                Key = objectName
+            };
+            GetObjectTaggingResponse objectTags = client.GetObjectTagging(tagRequest);
+            if (objectTags.Tagging.Count == 0)
+            {
+                Console.WriteLine("No Tags Found");
+            }
+            foreach (var tag in objectTags.Tagging)
+            {
+                Console.WriteLine($"Key: {tag.Key}, Value: {tag.Value}");
+            }
+        }
+        public void UpdateObjectTagging()
+        {
+            GetObjectTagging();
+            Tagging tags = new Tagging();
+            tags.TagSet = new List<Tag>
+            {
+                new Tag{Key="Key1",Value="Val1"},
+                new Tag{Key="Key2",Value="Val2"}
+            };
+            PutObjectTaggingRequest request = new PutObjectTaggingRequest
+            {
+                BucketName = bucketName,
+                Key = objectName,
+                Tagging = tags
+            };
+            PutObjectTaggingResponse response = client.PutObjectTagging(request);
+            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
+            {
+                Console.WriteLine("Object Tags updated successfully");
+            }
+            GetObjectTagging();
         }
         public void Dispose()
         {
