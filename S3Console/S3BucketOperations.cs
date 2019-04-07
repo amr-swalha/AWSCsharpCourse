@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace S3Console
@@ -40,7 +39,7 @@ namespace S3Console
             {
                 var bucket = new PutBucketRequest { BucketName = bucketName, UseClientRegion = true };
                 var bucketResponsoe = client.PutBucket(bucket);
-                if (bucketResponsoe.HttpStatusCode == System.Net.HttpStatusCode.OK)
+                if (bucketResponsoe.HttpStatusCode.IsSuccess())
                 {
                     Console.WriteLine("Bucket Created Successfully");
                 }
@@ -54,7 +53,7 @@ namespace S3Console
             {
                 FilePath = AppDomain.CurrentDomain.BaseDirectory + "\\test.txt",
                 CannedACL = S3CannedACL.PublicRead,
-                 BucketName = bucketName
+                BucketName = bucketName
             };
             transferUtil.Upload(fileTransferRequest);
             Console.WriteLine("File Uploaded Successfully");
@@ -62,7 +61,8 @@ namespace S3Console
         public async Task DownloadFileAsync()
         {
             string content = string.Empty;
-            GetObjectRequest request = new GetObjectRequest {
+            GetObjectRequest request = new GetObjectRequest
+            {
                 BucketName = bucketName,
                 Key = "test.txt"
             };
@@ -84,7 +84,8 @@ namespace S3Console
         }
         public void GeneratePreSignedUrl()
         {
-            GetPreSignedUrlRequest request = new GetPreSignedUrlRequest {
+            GetPreSignedUrlRequest request = new GetPreSignedUrlRequest
+            {
                 BucketName = bucketName,
                 Key = "test.txt",
                 Expires = DateTime.Now.AddHours(1)
@@ -127,14 +128,39 @@ namespace S3Console
                 Tagging = tags
             };
             PutObjectTaggingResponse response = client.PutObjectTagging(request);
-            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
+            if (response.HttpStatusCode.IsSuccess())
             {
                 Console.WriteLine("Object Tags updated successfully");
             }
             GetObjectTagging();
         }
+        public void UpdateObjectACL()
+        {
+            PutACLRequest request = new PutACLRequest { BucketName = bucketName, Key = objectName, CannedACL = S3CannedACL.PublicReadWrite };
+            var response = client.PutACL(request);
+            if (response.HttpStatusCode.IsSuccess())
+            {
+                Console.WriteLine("Object ACL Updated Successfully");
+            }
+
+        }
+
+        public void BucketVersioning()
+        {
+            PutBucketVersioningRequest request = new PutBucketVersioningRequest
+            {
+                BucketName = bucketName,
+                VersioningConfig = new S3BucketVersioningConfig { EnableMfaDelete = false, Status = VersionStatus.Enabled }
+            };
+            var response = client.PutBucketVersioning(request);
+            if (response.HttpStatusCode.IsSuccess())
+            {
+                Console.WriteLine("Bucket Versioning successful");
+            }
+        }
         public void Dispose()
         {
+            Console.WriteLine("Dispose");
             client.Dispose();
         }
     }
