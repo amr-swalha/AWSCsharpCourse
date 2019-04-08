@@ -7,7 +7,7 @@ namespace S3Console
         static void Main(string[] args)
         {
             S3BucketOperations s3BucketOperations = new S3BucketOperations();
-            s3BucketOperations.BucketVersioning();
+            s3BucketOperations.BucketAccelerate();
             Console.ReadLine();
         }
     }

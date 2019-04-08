@@ -157,6 +157,22 @@ namespace S3Console
             {
                 Console.WriteLine("Bucket Versioning successful");
             }
+
+        }
+
+        public void BucketAccelerate()
+        {
+            PutBucketAccelerateConfigurationRequest request = new PutBucketAccelerateConfigurationRequest {
+                BucketName = bucketName,
+                AccelerateConfiguration = new AccelerateConfiguration {
+                    Status = BucketAccelerateStatus.Enabled
+                }
+            };
+            var respone = client.PutBucketAccelerateConfiguration(request);
+            if (respone.HttpStatusCode.IsSuccess())
+            {
+                Console.WriteLine("Bucket Accelerate successful");
+            }
         }
         public void Dispose()
         {
