@@ -172,7 +172,7 @@ namespace S3Console
             if (respone.HttpStatusCode.IsSuccess())
             {
                 Console.WriteLine("Bucket Accelerate successful");
-            }
+            }            
         }
         public void Dispose()
         {

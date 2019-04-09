@@ -4,7 +4,7 @@
     {
         public static bool IsSuccess(this System.Net.HttpStatusCode code)
         {
-            return code == System.Net.HttpStatusCode.OK;
+            return code == System.Net.HttpStatusCode.OK || code == System.Net.HttpStatusCode.Created;
         }
     }
 }

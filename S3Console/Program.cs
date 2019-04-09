@@ -6,8 +6,8 @@ namespace S3Console
     {
         static void Main(string[] args)
         {
-            S3BucketOperations s3BucketOperations = new S3BucketOperations();
-            s3BucketOperations.BucketAccelerate();
+            S3GlacierOperations s3GlacierOperations = new S3GlacierOperations();
+            s3GlacierOperations.CreateVault();
             Console.ReadLine();
         }
     }
