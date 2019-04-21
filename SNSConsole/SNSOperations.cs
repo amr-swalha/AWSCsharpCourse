@@ -1,6 +1,7 @@
 ﻿using Amazon.Runtime;
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
+using SharedCode;
 using System;
 using System.Configuration;
 
@@ -101,6 +102,19 @@ namespace SNSConsole
             if (response.HttpStatusCode.IsSuccess())
             {
                 Console.WriteLine("Unsubscribe successfully");
+            }
+        }
+
+        public void DeleteTopic()
+        {
+            ListTopics();
+            Console.WriteLine("======Previuos Topics=======");
+            DeleteTopicRequest request = new DeleteTopicRequest { TopicArn = TopicARN };
+            var response = client.DeleteTopic(request);
+            if (response.HttpStatusCode.IsSuccess())
+            {
+                Console.WriteLine("Topic has been deleted successfully");
+                ListTopics();
             }
         }
     }

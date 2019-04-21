@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace SNSConsole
+namespace SQSConsole
 {
     class Program
     {
         static void Main(string[] args)
         {
-            SNSOperations snsOperations = new SNSOperations();
-            snsOperations.DeleteTopic();
+            SQSOperations operations = new SQSOperations();
+            operations.ReceiveMessage();
             Console.ReadLine();
         }
     }

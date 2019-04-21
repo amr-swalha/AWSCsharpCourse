@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8F09F94F-DAF2-493E-88F7-F921AC3DB6C3}</ProjectGuid>
+    <ProjectGuid>{F021329E-09AA-4733-81BF-58378345F6D7}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>S3Console</RootNamespace>
-    <AssemblyName>S3Console</AssemblyName>
+    <RootNamespace>SQSConsole</RootNamespace>
+    <AssemblyName>SQSConsole</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,19 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AWSSDK.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
-      <HintPath>..\packages\AWSSDK.Core.3.3.100.5\lib\net45\AWSSDK.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK.Glacier, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
-      <HintPath>..\packages\AWSSDK.Glacier.3.3.100.5\lib\net45\AWSSDK.Glacier.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK.S3, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
-      <HintPath>..\packages\AWSSDK.S3.3.3.101.3\lib\net45\AWSSDK.S3.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK.SimpleNotificationService, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
-      <HintPath>..\packages\AWSSDK.SimpleNotificationService.3.3.100.5\lib\net45\AWSSDK.SimpleNotificationService.dll</HintPath>
+      <HintPath>..\packages\AWSSDK.Core.3.3.100.7\lib\net45\AWSSDK.Core.dll</HintPath>
     </Reference>
     <Reference Include="AWSSDK.SQS, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
-      <HintPath>..\packages\AWSSDK.SQS.3.3.100.5\lib\net45\AWSSDK.SQS.dll</HintPath>
+      <HintPath>..\packages\AWSSDK.SQS.3.3.100.7\lib\net45\AWSSDK.SQS.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -61,18 +52,14 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="S3BucketOperations.cs" />
-    <Compile Include="S3GlacierOperations.cs" />
+    <Compile Include="SQSOperations.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\AWSSDK.Glacier.3.3.100.5\analyzers\dotnet\cs\AWSSDK.Glacier.CodeAnalysis.dll" />
-    <Analyzer Include="..\packages\AWSSDK.S3.3.3.101.3\analyzers\dotnet\cs\AWSSDK.S3.CodeAnalysis.dll" />
-    <Analyzer Include="..\packages\AWSSDK.SimpleNotificationService.3.3.100.5\analyzers\dotnet\cs\AWSSDK.SimpleNotificationService.CodeAnalysis.dll" />
-    <Analyzer Include="..\packages\AWSSDK.SQS.3.3.100.5\analyzers\dotnet\cs\AWSSDK.SQS.CodeAnalysis.dll" />
+    <Analyzer Include="..\packages\AWSSDK.SQS.3.3.100.7\analyzers\dotnet\cs\AWSSDK.SQS.CodeAnalysis.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedCode\SharedCode.csproj">

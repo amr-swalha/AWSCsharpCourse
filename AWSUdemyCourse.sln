@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S3Console", "S3Console\S3Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SNSConsole", "SNSConsole\SNSConsole.csproj", "{DE7102D0-544F-4006-B59F-4799B8B8A345}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQSConsole", "SQSConsole\SQSConsole.csproj", "{F021329E-09AA-4733-81BF-58378345F6D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedCode", "SharedCode\SharedCode.csproj", "{F375DDFE-C8D2-420A-A06D-F78BF1D0BE3F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,13 +33,20 @@ Global
 		{DE7102D0-544F-4006-B59F-4799B8B8A345}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE7102D0-544F-4006-B59F-4799B8B8A345}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE7102D0-544F-4006-B59F-4799B8B8A345}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F021329E-09AA-4733-81BF-58378345F6D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F021329E-09AA-4733-81BF-58378345F6D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F021329E-09AA-4733-81BF-58378345F6D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F021329E-09AA-4733-81BF-58378345F6D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F375DDFE-C8D2-420A-A06D-F78BF1D0BE3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F375DDFE-C8D2-420A-A06D-F78BF1D0BE3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F375DDFE-C8D2-420A-A06D-F78BF1D0BE3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F375DDFE-C8D2-420A-A06D-F78BF1D0BE3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8F09F94F-DAF2-493E-88F7-F921AC3DB6C3} = {9E00FBE6-ECD3-47F5-A0F4-8BAEB5449308}
-		{DE7102D0-544F-4006-B59F-4799B8B8A345} = {9E00FBE6-ECD3-47F5-A0F4-8BAEB5449308}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {68645D30-9A13-4B60-B2DE-CF2170C86BF1}

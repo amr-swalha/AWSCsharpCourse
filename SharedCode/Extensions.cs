@@ -1,4 +1,4 @@
-﻿namespace S3Console
+﻿namespace SharedCode
 {
     public static class Extensions
     {

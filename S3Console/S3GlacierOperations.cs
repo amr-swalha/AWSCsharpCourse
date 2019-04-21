@@ -7,6 +7,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using Amazon.Glacier.Transfer;
+using SharedCode;
 
 namespace S3Console
 {
