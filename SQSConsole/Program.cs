@@ -7,7 +7,7 @@ namespace SQSConsole
         static void Main(string[] args)
         {
             SQSOperations operations = new SQSOperations();
-            operations.ReceiveMessage();
+            operations.PurgeMessages();
             Console.ReadLine();
         }
     }

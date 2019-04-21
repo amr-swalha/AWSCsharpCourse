@@ -4,11 +4,14 @@ using Amazon.SQS.Model;
 using System;
 using System.Configuration;
 using SharedCode;
+using System.Collections.Generic;
+
 namespace SQSConsole
 {
     public class SQSOperations
     {
         const string QueueName = "myappqueue";
+        const string ReceiptHandle = "AQEBzDmr97WjpftKzvm5GzvcrEZl3fsK8SmjGVhVV1O759HYC4V8Q9PDfU6CbsleCOufBV9JLbPYpW5JphEdrkT0IIO5+3s6uJe7yzwo6YUgXo8dhDa28Gzoe+P3Dg707ex/h5+GP0AG4O1kZmjmiKev1ooRnLr7d5dS0aUq5bq5hzcdMZrU51mhsEX325BOszXB8xNPCOZBkzJ55ABg3eS6NIg9vjv1fTYC1qba0q7Ak1B1CaXGBmBypaBnynnw6lA4B5edntAuhL6PAtjFgt/5iol/p54oOmARQ3lQJNUBUfnM59xpceAdP4Etr60J9ISaUCID/m7V52X9s7Y2LbuYP08dmXraPvxpdyVtHfPpCG8VqvoAGtyxIJ5weR20bUWX";
         const string QueueUrl = "https://sqs.us-east-1.amazonaws.com/993110140744/myappqueue";
         public BasicAWSCredentials credentials =
           new BasicAWSCredentials(ConfigurationManager.AppSettings["accessId"], ConfigurationManager.AppSettings["secertKey"]);
@@ -48,7 +51,46 @@ namespace SQSConsole
                 {
                     Console.WriteLine($"Message Content: {message.Body}");
                     Console.WriteLine($"Message Content: {message.MessageId}");
+                    Console.WriteLine($"Message Content: {message.ReceiptHandle}");
                 }
+            }
+        }
+        public void SendBatchMessages()
+        {
+            SendMessageBatchRequest request = new SendMessageBatchRequest();
+            request.QueueUrl = QueueUrl;
+            request.Entries = new List<SendMessageBatchRequestEntry>
+            {
+                new SendMessageBatchRequestEntry {Id = Guid.NewGuid().ToString(),MessageBody = "First Message"},
+                new SendMessageBatchRequestEntry {Id = Guid.NewGuid().ToString(),MessageBody = "Second Message"}
+            };
+            var response = client.SendMessageBatch(request);
+            if (response.HttpStatusCode.IsSuccess())
+            {
+                Console.WriteLine("Messages queued successfully");
+                foreach (var item in response.Successful)
+                {
+                    Console.WriteLine($"ID: {item.Id}, SequenceNumber: {item.SequenceNumber}, MessageId: {item.MessageId}");
+                }
+                
+            }
+        }
+        public void DeleteMessage()
+        {
+            DeleteMessageRequest request = new DeleteMessageRequest { QueueUrl = QueueUrl, ReceiptHandle = ReceiptHandle };
+            var response = client.DeleteMessage(request);
+            if (response.HttpStatusCode.IsSuccess())
+            {
+                Console.WriteLine("Message Deleted Succsessfully");
+            }
+        }
+        public void PurgeMessages()
+        {
+            PurgeQueueRequest request = new PurgeQueueRequest { QueueUrl = QueueUrl };
+            var response = client.PurgeQueue(request);
+            if (response.HttpStatusCode.IsSuccess())
+            {
+                Console.WriteLine("Message(s) Deleted Succsessfully");
             }
         }
     }
