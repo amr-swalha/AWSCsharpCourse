@@ -1,4 +1,5 @@
 ﻿using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using Amazon.Runtime;
 using SharedCode;
@@ -59,6 +60,92 @@ namespace DynamoDBConsole
             if (response.HttpStatusCode.IsSuccess())
             {
                 Console.WriteLine("Table created successfully");
+            }
+        }
+        public void InsertItem()
+        {
+            PutItemRequest request = new PutItemRequest
+            {
+                TableName = TableName,
+                Item = new Dictionary<string, AttributeValue>
+               {
+                   {"Id", new AttributeValue{N = "7"} },
+                   {"Username", new AttributeValue{S = "user"} },
+                   {"CreatedAt", new AttributeValue{S = "27-4-2019"} }
+               }
+            };
+            var response = client.PutItem(request);
+            if (response.HttpStatusCode.IsSuccess())
+            {
+                Console.WriteLine("Item added successfully");
+            }
+        }
+
+        public void GetItem()
+        {
+            GetItemRequest request = new GetItemRequest
+            {
+                TableName = TableName,
+                Key = new Dictionary<string, AttributeValue>
+                {
+                    {"Id", new AttributeValue{N = "7"} },
+                    {"Username", new AttributeValue{S = "user"} }
+                }
+            };
+            var response = client.GetItem(request);
+            if (response.HttpStatusCode.IsSuccess())
+            {
+                if (response.Item.Count > 0)
+                {
+                    Console.WriteLine("Items(s) retrived successfully");
+                    foreach (var item in response.Item)
+                    {
+                        Console.WriteLine($"Key: {item.Key}, Value:{item.Value.S}{item.Value.N}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No Items(s) found");
+                }
+            }
+        }
+
+        public void DeleteItem()
+        {
+            DeleteItemRequest request = new DeleteItemRequest
+            {
+                TableName = TableName,
+                Key = new Dictionary<string, AttributeValue>
+                {
+                    {"Id", new AttributeValue{N = "7"} },
+                    {"Username", new AttributeValue{S = "user"} }
+                }
+            };
+            var response = client.DeleteItem(request);
+            if (response.HttpStatusCode.IsSuccess())
+            {
+                Console.WriteLine("Item has been deleted successfully");
+                GetItem();
+            }
+        }
+
+        public void DescribeTable()
+        {
+            DescribeTableRequest request = new DescribeTableRequest { TableName = TableName };
+            var response = client.DescribeTable(request);
+            if (response.HttpStatusCode.IsSuccess())
+            {
+                Console.WriteLine($"TableArn: {response.Table.TableArn}");
+            }
+        }
+
+        public void DeleteTable()
+        {
+            var response = client.DeleteTable(TableName);
+            if (response.HttpStatusCode.IsSuccess())
+            {
+                Console.WriteLine("Table has been deleted successfully");
+                Console.WriteLine($"Table status: {response.TableDescription.TableStatus.Value}");
             }
         }
     }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DynamoDBConsole
 {
@@ -11,7 +7,7 @@ namespace DynamoDBConsole
         static void Main(string[] args)
         {
             DDBOperations operations = new DDBOperations();
-            operations.CreateTable();
+            operations.DeleteTable();
             Console.ReadLine();
         }
     }
