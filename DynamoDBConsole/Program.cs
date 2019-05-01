@@ -7,7 +7,7 @@ namespace DynamoDBConsole
         static void Main(string[] args)
         {
             DDBOperations operations = new DDBOperations();
-            operations.DeleteTable();
+            operations.RestoreBackup();
             Console.ReadLine();
         }
     }

@@ -15,6 +15,8 @@ namespace DynamoDBConsole
         public BasicAWSCredentials credentials =
              new BasicAWSCredentials(ConfigurationManager.AppSettings["accessId"], ConfigurationManager.AppSettings["secertKey"]);
         const string TableName = "MyAppsTable";
+        const string BackupArn = "arn:aws:dynamodb:us-west-1:993110140744:table/MyAppsTable/backup/01556559330663-cc29d80b";
+        const string BackupTableName = "MyAppsTableBk";
         public DDBOperations()
         {
             client = new AmazonDynamoDBClient(credentials, Amazon.RegionEndpoint.USWest1);
@@ -141,11 +143,35 @@ namespace DynamoDBConsole
 
         public void DeleteTable()
         {
-            var response = client.DeleteTable(TableName);
+            var response = client.DeleteTable(BackupTableName);
             if (response.HttpStatusCode.IsSuccess())
             {
                 Console.WriteLine("Table has been deleted successfully");
                 Console.WriteLine($"Table status: {response.TableDescription.TableStatus.Value}");
+            }
+        }
+        public void BackupTable()
+        {
+            CreateBackupRequest request = new CreateBackupRequest { BackupName = "BKP002", TableName = TableName };
+            var response = client.CreateBackup(request);
+            if (response.HttpStatusCode.IsSuccess())
+            {
+                Console.WriteLine("Backup created successfully");
+                Console.WriteLine($"Backup BackupArn:{response.BackupDetails.BackupArn}");
+                Console.WriteLine($"Backup BackupCreationDateTime:{response.BackupDetails.BackupCreationDateTime}");
+                Console.WriteLine($"Backup BackupStatus:{response.BackupDetails.BackupStatus}");
+                Console.WriteLine($"Backup BackupSizeBytes:{response.BackupDetails.BackupSizeBytes}");
+            }
+        }
+        public void RestoreBackup()
+        {
+            RestoreTableFromBackupRequest request = new RestoreTableFromBackupRequest { BackupArn = BackupArn, TargetTableName = BackupTableName };
+            var response = client.RestoreTableFromBackup(request);
+            if (response.HttpStatusCode.IsSuccess())
+            {
+                Console.WriteLine("Backup restored successfully");
+                Console.WriteLine($"Backup Table Arn: {response.TableDescription.TableArn}");
+                Console.WriteLine($"Backup Table Status: {response.TableDescription.TableStatus}");
             }
         }
     }
